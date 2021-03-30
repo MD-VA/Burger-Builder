@@ -6,6 +6,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios';
 import Spinner from '../../components/UI/Spinner/spinner';
 import wihtErrorHandler from '../../components/withErrorHandler/wihtErrorHandler';
+import { Router } from 'react-router-dom';
 
 
 const INGREDIENT_PRICES = {
@@ -37,31 +38,20 @@ class BurgerBuilder extends Component {
             this.setState({purchasing: false})
     }  
     purchaseContinueHandler = () => {
-            this.setState({
-                loading: true
-            })
-            // alert(`This burger is served to you by the sexy fucking strip dance club lady's!`)
-            const order = {
-                ingrediants : this.state.ingredients,
-                price : this.state.totalPrice,//! the price should be recalculated in the server 
-                customer: {
-                    name : 'Batman',
-                    adresse :{
-                        street: 'Arkham city',
-                        zipCode: '065456',
-                        country: 'No mans land'
-                    },
-                    email: 'batman@gmail.com'
-                }
+           
+            const queryParams = [];
+            for (let i in this.state.ingredients) {
+                console.log('the ingredients = ' + i)
+                queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+                
             }
-            axios.post('/orders.json',order)
-            .then(res => {
-                console.log(res);
-                this.setState({ loading: false, purchasing: false })
-            })
-            .catch(err => {
-                console.error(err); 
-                this.setState({ loading: false, purchasing: false })
+            queryParams.push('price=' + this.state.totalPrice);
+            console.log('the query params: ' + queryParams);
+            const queryString = queryParams.join('&')
+            console.log('the query string = ' + queryString);
+            this.props.history.push({
+                pathname: '/checkout',
+                search: '?' + queryString
             })
     }
 
@@ -121,6 +111,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        // console.log(this.props);
         axios.get('https://burger-builder-react-fb3ca-default-rtdb.firebaseio.com/ingredients.json')
         .then(res => {
             this.setState({
@@ -175,6 +166,7 @@ class BurgerBuilder extends Component {
                    {orderSummary}
                 </Modal>
                 {burger}
+                
             </Fragment>
         )
     }
