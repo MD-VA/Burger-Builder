@@ -4,6 +4,7 @@ import classes from './ContactData.module.css';
 import axios from '../../../axios';
 import Spinner from '../../../components/UI/Spinner/spinner';
 import Input from '../../../components/UI/Input/Input';
+import { connect } from 'react-redux';
 
 class ContactData extends Component {
     state ={
@@ -83,7 +84,7 @@ class ContactData extends Component {
                         {value: 'normal', displayValue: 'Normal'}
                     ]
                 },
-                value: '',
+                value: 'express',
                 valid:true
              },
         },
@@ -94,6 +95,9 @@ class ContactData extends Component {
 
     checkValidation = (value,rules) => {
         let isValid = true;
+        if (!rules) {
+            return true;
+        }
          if (rules.required){
              isValid = value.trim() !== '' && isValid ;//!trim is to remove any white spaces
          }
@@ -139,7 +143,7 @@ class ContactData extends Component {
                 formData[formElement] = this.state.orderForm[formElement].value;
             }
             const order = {
-                ingredients : this.props.ingredients,
+                ingredients : this.props.ing,
                 price : this.props.price,//! the price should be recalculated in the server 
                 orderForm: formData
             }
@@ -199,4 +203,11 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return{
+        ing: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(ContactData);
