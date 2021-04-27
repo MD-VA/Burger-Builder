@@ -11,7 +11,23 @@ class Orders extends Component {
     componentDidMount() {
        this.props.onFetchOrders();
     }
+
+  
+
     render() {
+
+        const deleteOrders = (id) => {
+            axios.delete(`/orders/${id}.json`)
+            .then(res => {
+                console.log(res,'was deleted')
+                this.props.onFetchOrders();
+            })
+            .catch(err => {
+                console.error(err);
+                // alert('there has been an error');
+            })
+        }
+
         let orders = <Spinner/>
         if (!this.props.loading){
             orders = (
@@ -21,6 +37,7 @@ class Orders extends Component {
                     key={order.id}
                     ingredients={order.ingredients}
                     price={+order.price}
+                    delete={() => deleteOrders(order.id)}
                     />
                 ))}
             </div>

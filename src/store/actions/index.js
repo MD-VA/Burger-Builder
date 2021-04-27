@@ -10,5 +10,5 @@ export {
     purshaseBurgerSuccess,
     purcahseBurgerStart,
     purchaseInit,
-    fetchOrders
+    fetchOrders,
  } from './order';
