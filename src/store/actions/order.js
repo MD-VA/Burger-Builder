@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from '../../axios';
-import { EntryOptionPlugin } from "webpack";
+
 
 
 export const purshaseBurgerSuccess = (id, orderData) => {
