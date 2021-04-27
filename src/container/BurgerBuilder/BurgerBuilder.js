@@ -8,7 +8,7 @@ import Spinner from '../../components/UI/Spinner/spinner';
 import wihtErrorHandler from '../../components/withErrorHandler/wihtErrorHandler';
 // import { Router } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as burgerBuilderAction from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 
 class BurgerBuilder extends Component {
@@ -19,7 +19,7 @@ class BurgerBuilder extends Component {
     //     }
     // }
     state = {
-        //?manage with redux
+        //?ANCHOR most of the state is now managed with redux
         // ingredients: null,
         // totalPrice : 4,
         //?local UI state
@@ -34,9 +34,10 @@ class BurgerBuilder extends Component {
             this.setState({purchasing: false})
     }  
     purchaseContinueHandler = () => {
+            this.props.onInit();
             this.props.history.push({
                 pathname: '/checkout',
-            })
+            })  
     }
 
     updatePuschaseState = (ingredients) => {
@@ -145,16 +146,18 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ing: state.ingredients,
-        price:state.totalPrice,
-        error:state.error
+        ing: state.burgerBuilder.ingredients,
+        price:state.burgerBuilder.totalPrice,
+        error:state.burgerBuilder.error,
+
     }
 }
 const mapDispatchToProps = dispatch => {
     return{
-        OnIngredientAdded: (ingName) => dispatch(burgerBuilderAction.addIngredient(ingName)),
-        OnIngredientRemoved:(ingName) => dispatch(burgerBuilderAction.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderAction.initIngredient())
+        OnIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        OnIngredientRemoved:(ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredient()),
+        onInit: () => dispatch(actions.purchaseInit())
     }
 }
 

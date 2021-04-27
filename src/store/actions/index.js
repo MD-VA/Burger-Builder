@@ -4,4 +4,11 @@ export {
     initIngredient
 } from './burgerBuilder';
 
-export {} from './order';
+export { 
+    purshaseBurger,
+    purshaseBurgerFail,
+    purshaseBurgerSuccess,
+    purcahseBurgerStart,
+    purchaseInit,
+    fetchOrders
+ } from './order';

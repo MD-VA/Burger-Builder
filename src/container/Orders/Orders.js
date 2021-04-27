@@ -9,24 +9,7 @@ class Orders extends Component {
         loading: true
     }
     componentDidMount() {
-        axios.get('/orders.json')
-        .then(res => {
-            console.log('Data : ',res.data)
-            const fetcheOrders = [];
-            for (let key in res.data) {
-                fetcheOrders.push({
-                    ...res.data[key],
-                    id:key
-                })
-            }
-            this.setState({loading: false, orders: fetcheOrders})
-            // console.log('fioejrof',fetcheOrders);
-            // console.log('fioejrof',this.state.orders);
-        })
-        .catch(err => {
-            console.error(err); 
-            this.setState({loading: false});
-        })
+       
     }
     render() {
         return (
