@@ -9,3 +9,7 @@ export const PURCHASE_INIT = 'PURCHASE_INIT';
 export const FETH_ORDER_START = 'FETH_ORDER_START';
 export const FETH_ORDER_SUCCESS = 'FETH_ORDER_SUCCESS';
 export const FETH_ORDER_FAIL = 'FETH_ORDER_FAIL';
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';

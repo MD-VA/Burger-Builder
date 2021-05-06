@@ -69,11 +69,11 @@ export const fetchOrderStart = () => {
     };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
 
     return dispatch => {
         //!NOTE in this part we fetch data from the database 
-        axios.get('/orders.json')
+        axios.get('/orders.json?auth=' + token)
         .then(res => {
             console.log('Data : ',res.data)
             const fetcheOrders = [];
