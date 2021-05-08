@@ -11,8 +11,10 @@ export {
     purcahseBurgerStart,
     purchaseInit,
     fetchOrders,
+    deleteOrders
  } from './order';
 
  export {
-    auth
+    auth,
+    setAuthRedirectPath
  } from './auth'

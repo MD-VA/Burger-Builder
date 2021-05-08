@@ -149,7 +149,7 @@ class ContactData extends Component {
                 price : this.props.price,//! the price should be recalculated in the server 
                 orderForm: formData
             }
-            this.props.onOrderBurger(order)
+            this.props.onOrderBurger(order, this.props.token)
 
     }
     render() {
@@ -200,12 +200,13 @@ const mapStateToProps = state => {
     return{
         ing: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token
     }
 }
  const mapDispatchToProps = dispatch => {
      return{
-        onOrderBurger: (orders) => dispatch( actions.purshaseBurger(orders))
+        onOrderBurger: (orders, token) => dispatch( actions.purshaseBurger(orders, token))
      };
  }
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios) );

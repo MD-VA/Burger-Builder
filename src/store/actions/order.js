@@ -26,10 +26,10 @@ export const purcahseBurgerStart = () => {
     }
 };
 
-export const purshaseBurger = (orderData) => {
+export const purshaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purcahseBurgerStart());
-        axios.post('/orders.json',orderData)
+        axios.post('/orders.json?auth=' + token,orderData)
         .then(res => {
             console.log(res);
             dispatch(purshaseBurgerSuccess(res.data.name, orderData))
@@ -91,5 +91,19 @@ export const fetchOrders = (token) => {
             dispatch(fetchOrderFail(err));
         })
     }  
+}
+
+export const deleteOrders = (id, token) => {
+    return dispatch => {
+        axios.delete(`/orders/${id}.json?auth=${token}`)
+        .then(res => {
+            console.log(res,'was deleted')
+            dispatch(fetchOrders(token)) ;
+        })
+        .catch(err => {
+            console.error(err);
+            // alert('there has been an error');
+        })
+    } 
 }
 
