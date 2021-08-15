@@ -27,6 +27,7 @@ class Layout extends Component {
             <Fragment>
                 <Toolbar 
                 isAuth = {this.props.isAuthenticated}
+                logout = {this.props.onLogout}
                 toggle = {this.sideDrawerToggle}/>
                 <SideDrawer
                     isAuth = {this.props.isAuthenticated}
@@ -45,5 +46,7 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null
     };
 }
+
+
 
 export default connect(mapStateToProps)(Layout);
